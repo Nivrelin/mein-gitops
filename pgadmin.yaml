@@ -16,7 +16,7 @@ spec:
       # Wir entfernen fsGroup komplett. OpenShift regelt das über die Namespace-Policy.
       containers:
       - name: pgadmin
-        image: quay.io/bitnami/pgadmin4:latest
+        image: bitnami/pgadmin4:8.14.0
         imagePullPolicy: IfNotPresent
         securityContext:
           # Wir erzwingen keine ID, sondern sagen nur: "Kein Root!"
