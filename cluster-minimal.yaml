@@ -1,0 +1,27 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mein-postgres-cluster
+  namespace: cnpg-cluster-test
+spec:
+  instances: 3
+
+  # Konfiguration der Datenspeicherung
+  storage:
+    size: 1Gi
+
+  # Hier war der Fehler: Tablespaces MÜSSEN eine Liste sein (mit -)
+  # Wenn du keine speziellen Tablespaces brauchst, kannst du diesen Block auch löschen.
+  tablespaces:
+    - name: data_tablespace
+      storage:
+        size: 1Gi
+
+  # Monitoring (Optional, aber empfohlen)
+  monitoring:
+    enablePodMonitor: true
+
+  # Default Zertifikats-Strategie (nutzt cert-manager falls vorhanden)
+  certificates:
+    serverAltNames:
+      - mein-postgres-cluster.cnpg.svc
