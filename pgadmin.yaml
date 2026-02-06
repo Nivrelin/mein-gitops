@@ -16,7 +16,7 @@ spec:
       containers:
       - name: pgadmin
         # Wir nutzen den internen ImageStream, den der Build gerade erstellt hat
-        image: pgadmin-local:latest
+        image: image: image-registry.openshift-image-registry.svc:5000/cnpg-cluster-test/pgadmin-local:latest
         imagePullPolicy: IfNotPresent 
         env:
         - name: PGADMIN_DEFAULT_EMAIL
