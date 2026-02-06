@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: pgadmin
-        image: pgadmin-local:latest
+        image: image-registry.openshift-image-registry.svc:5000/cnpg-cluster-test/pgadmin-local:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: PGADMIN_DEFAULT_EMAIL
