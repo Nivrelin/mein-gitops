@@ -4,16 +4,22 @@ metadata:
   name: pgadmin
   namespace: cnpg-cluster-test
 spec:
+  replicas: 1
+  # 1. Dieser Selector sagt dem Deployment, welche Pods es steuern soll
+  selector:
+    matchLabels:
+      app: pgadmin
+  # 2. Das Template definiert, wie die neuen Pods aussehen
   template:
+    metadata:
+      labels:
+        app: pgadmin # MUSS mit dem matchLabels oben übereinstimmen!
     spec:
       securityContext:
-        # OpenShift weist normalerweise zufällige UIDs zu. 
-        # Wir erzwingen hier eine, die oft mit pgAdmin funktioniert.
-        fsGroup: 5050 
+        fsGroup: 5050
       containers:
       - name: pgadmin
         image: dpage/pgadmin4
-        # WICHTIG: Verhindert, dass das Image versucht, sudo/root zu nutzen
         securityContext:
           allowPrivilegeEscalation: false
           runAsUser: 5050
@@ -22,7 +28,8 @@ spec:
           value: "admin@example.com"
         - name: PGADMIN_DEFAULT_PASSWORD
           value: "admin123"
-        # pgAdmin braucht ein beschreibbares Verzeichnis für Sessions
+        ports:
+        - containerPort: 80
         volumeMounts:
         - name: pgadmin-data
           mountPath: /var/lib/pgadmin
@@ -42,4 +49,4 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 30080 # Über diesen Port erreichst du es in CRC
+    nodePort: 30080
