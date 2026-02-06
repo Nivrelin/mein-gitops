@@ -15,14 +15,11 @@ spec:
       labels:
         app: pgadmin # MUSS mit dem matchLabels oben übereinstimmen!
     spec:
-      securityContext:
-        fsGroup: 5050
       containers:
       - name: pgadmin
         image: dpage/pgadmin4
         securityContext:
           allowPrivilegeEscalation: false
-          runAsUser: 5050
         env:
         - name: PGADMIN_DEFAULT_EMAIL
           value: "admin@example.com"
