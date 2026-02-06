@@ -13,31 +13,29 @@ spec:
       labels:
         app: pgadmin
     spec:
-      # Bitnami-Images laufen standardmäßig als User 1001, 
-      # was perfekt in die OpenShift-Logik passt.
-      securityContext:
-        fsGroup: 1001
+      # Wir entfernen fsGroup komplett. OpenShift regelt das über die Namespace-Policy.
       containers:
       - name: pgadmin
         image: docker.io/bitnami/pgadmin:latest
         imagePullPolicy: IfNotPresent
-        # Bitnami nutzt Port 8080 oder 1025+, damit kein Root nötig ist
-        ports:
-        - containerPort: 8080
+        securityContext:
+          # Wir erzwingen keine ID, sondern sagen nur: "Kein Root!"
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
         env:
         - name: PGADMIN_DEFAULT_EMAIL
           value: "admin@example.com"
         - name: PGADMIN_DEFAULT_PASSWORD
           value: "admin123"
-        # Bitnami nutzt diesen Pfad für Daten
+        ports:
+        - containerPort: 8080
         volumeMounts:
         - name: pgadmin-data
           mountPath: /bitnami/pgadmin
-        securityContext:
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
       volumes:
       - name: pgadmin-data
         emptyDir: {}
