@@ -13,29 +13,32 @@ spec:
       labels:
         app: pgadmin
     spec:
-      # Wir entfernen fsGroup komplett. OpenShift regelt das über die Namespace-Policy.
       containers:
       - name: pgadmin
-        image: gcr.io/bitnami-containers/pgadmin4:latest
-        imagePullPolicy: IfNotPresent
-        securityContext:
-          # Wir erzwingen keine ID, sondern sagen nur: "Kein Root!"
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
-          seccompProfile:
-            type: RuntimeDefault
+        # Wir nutzen den internen ImageStream, den der Build gerade erstellt hat
+        image: pgadmin-local:latest
+        imagePullPolicy: IfNotPresent 
         env:
         - name: PGADMIN_DEFAULT_EMAIL
           value: "admin@example.com"
         - name: PGADMIN_DEFAULT_PASSWORD
           value: "admin123"
+        - name: PGADMIN_LISTEN_PORT
+          value: "8080"
+        securityContext:
+          # Da wir das dpage-Image gebaut haben, lassen wir die UIDs weg
+          # und setzen nur die Standard-Sicherheit
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
         ports:
         - containerPort: 8080
         volumeMounts:
         - name: pgadmin-data
-          mountPath: /bitnami/pgadmin
+          mountPath: /var/lib/pgadmin
       volumes:
       - name: pgadmin-data
         emptyDir: {}
