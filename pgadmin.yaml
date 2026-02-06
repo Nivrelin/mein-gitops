@@ -4,25 +4,31 @@ metadata:
   name: pgadmin
   namespace: cnpg-cluster-test
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: pgadmin
   template:
-    metadata:
-      labels:
-        app: pgadmin
     spec:
+      securityContext:
+        # OpenShift weist normalerweise zufällige UIDs zu. 
+        # Wir erzwingen hier eine, die oft mit pgAdmin funktioniert.
+        fsGroup: 5050 
       containers:
       - name: pgadmin
         image: dpage/pgadmin4
+        # WICHTIG: Verhindert, dass das Image versucht, sudo/root zu nutzen
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 5050
         env:
         - name: PGADMIN_DEFAULT_EMAIL
           value: "admin@example.com"
         - name: PGADMIN_DEFAULT_PASSWORD
-          value: "admin123" # Ändere das später!
-        ports:
-        - containerPort: 80
+          value: "admin123"
+        # pgAdmin braucht ein beschreibbares Verzeichnis für Sessions
+        volumeMounts:
+        - name: pgadmin-data
+          mountPath: /var/lib/pgadmin
+      volumes:
+      - name: pgadmin-data
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
