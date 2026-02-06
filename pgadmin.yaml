@@ -15,9 +15,8 @@ spec:
     spec:
       containers:
       - name: pgadmin
-        # Wir nutzen den internen ImageStream, den der Build gerade erstellt hat
-        image: image-registry.openshift-image-registry.svc:5000/cnpg-cluster-test/pgadmin-local:latest
-        imagePullPolicy: IfNotPresent 
+        image: pgadmin-local:latest
+        imagePullPolicy: IfNotPresent
         env:
         - name: PGADMIN_DEFAULT_EMAIL
           value: "admin@example.com"
@@ -25,15 +24,16 @@ spec:
           value: "admin123"
         - name: PGADMIN_LISTEN_PORT
           value: "8080"
+        # DIESER EINTRAG IST ENTSCHEIDEND:
+        # Er sagt dem Entrypoint-Skript, dass es keine System-Anpassungen (chown/sudo) machen soll.
+        - name: PGADMIN_CONFIG_SERVER_MODE
+          value: "False" 
         securityContext:
-          # Da wir das dpage-Image gebaut haben, lassen wir die UIDs weg
-          # und setzen nur die Standard-Sicherheit
-          allowPrivilegeEscalation: false
           runAsNonRoot: true
+          # OpenShift erzwingt das meistens sowieso, aber hier setzen wir es explizit:
+          allowPrivilegeEscalation: false
           capabilities:
             drop: ["ALL"]
-          seccompProfile:
-            type: RuntimeDefault
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -42,17 +42,3 @@ spec:
       volumes:
       - name: pgadmin-data
         emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: pgadmin-service
-  namespace: cnpg-cluster-test
-spec:
-  type: NodePort
-  selector:
-    app: pgadmin
-  ports:
-  - port: 80
-    targetPort: 8080
-    nodePort: 30080
