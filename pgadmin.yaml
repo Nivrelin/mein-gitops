@@ -13,13 +13,10 @@ spec:
       labels:
         app: pgadmin
     spec:
-      # Wir definieren KEINE feste UID. OpenShift setzt diese automatisch.
       containers:
       - name: pgadmin
         image: dpage/pgadmin4
-        imagePullPolicy: IfNotPresent
         securityContext:
-          # Streng nach OpenShift-Standard:
           allowPrivilegeEscalation: false
           capabilities:
             drop: ["ALL"]
@@ -31,10 +28,8 @@ spec:
           value: "admin@example.com"
         - name: PGADMIN_DEFAULT_PASSWORD
           value: "admin123"
-        # Wichtig: pgAdmin versucht normalerweise auf Port 80 zu lauschen. 
-        # Das darf ein non-root User nicht (Ports < 1024 sind geschützt).
         - name: PGADMIN_LISTEN_PORT
-          value: "8080"
+          value: "8080" # Port über 1024 für non-root
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -42,10 +37,8 @@ spec:
           mountPath: /var/lib/pgadmin
       volumes:
       - name: pgadmin-data
-        # Ein emptyDir reicht für den Test, OpenShift setzt hier 
-        # automatisch die richtigen Berechtigungen für den zufälligen User.
         emptyDir: {}
---
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -57,5 +50,5 @@ spec:
     app: pgadmin
   ports:
   - port: 80
-    targetPort: 8080 # Hier auf den neuen Container-Port zeigen
+    targetPort: 8080
     nodePort: 30080
