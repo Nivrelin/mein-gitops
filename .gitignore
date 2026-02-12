@@ -38,3 +38,4 @@ openshift/.crc/machines/crc/kubeadmin-password
 openshift/.crc/machines/crc/kubeconfig
 dockerfile
 pull-secret
+enable-uwm.yaml

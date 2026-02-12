@@ -25,3 +25,19 @@ spec:
   certificates:
     serverAltNames:
       - mein-postgres-cluster.cnpg.svc
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: cnpg-cluster-monitor
+  namespace: cnpg-cluster-test # Dein Namespace
+  labels:
+    # Dieses Label ist oft nötig, damit der Operator die Ressource erkennt
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      # CNPG setzt dieses Label automatisch auf alle Instanz-Pods
+      cnpg.io/cluster: mein-postgres-cluster
+  podMetricsEndpoints:
+  - port: metrics
+    interval: 30s
