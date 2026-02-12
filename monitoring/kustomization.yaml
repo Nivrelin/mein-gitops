@@ -15,6 +15,8 @@ configMapGenerator:
       labels:
         # Dieses Label ist entscheidend für den Sidecar!
         grafana_dashboard: "1"
+      annotations:
+        argocd.argoproj.io/sync-options: ServerSideApply=true
 
 # Verhindert, dass Kustomize eine Zufalls-ID an den Namen hängt
 generatorOptions:
