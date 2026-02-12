@@ -60,6 +60,9 @@ spec:
           mountPath: /etc/grafana/provisioning/datasources
         - name: sc-dashboard-volume
           mountPath: /tmp/dashboards  
+        - name: dashboard-provider-config
+          mountPath: /etc/grafana/provisioning/dashboards/provider.yaml
+          subPath: provider.yaml
       - name: grafana-sc-dashboard
         image: kiwigrid/k8s-sidecar:latest
         env:
@@ -80,6 +83,9 @@ spec:
       - name: datasource-config
         configMap:
           name: grafana-datasources
+      - name: dashboard-provider-config
+        configMap:
+          name: grafana-dashboard-provider
 ---
 apiVersion: v1
 kind: Service
@@ -139,3 +145,21 @@ roleRef:
   kind: Role
   name: grafana-sidecar-role
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-provider
+  namespace: cnpg-cluster-test
+data:
+  provider.yaml: |
+    apiVersion: 1
+    providers:
+    - name: 'SidecarDashboards'
+      orgId: 1
+      folder: 'CNPG'
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /tmp/dashboards  # Hier hat das Sidecar die Datei abgelegt!
