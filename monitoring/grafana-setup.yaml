@@ -115,3 +115,27 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: grafana-sa
 type: kubernetes.io/service-account-token
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: grafana-sidecar-role
+  namespace: cnpg-cluster-test
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: grafana-sidecar-rolebinding
+  namespace: cnpg-cluster-test
+subjects:
+- kind: ServiceAccount
+  name: grafana-sa
+  namespace: cnpg-cluster-test
+roleRef:
+  kind: Role
+  name: grafana-sidecar-role
+  apiGroup: rbac.authorization.k8s.io
