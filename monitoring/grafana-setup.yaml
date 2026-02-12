@@ -77,7 +77,6 @@ spec:
       volumes:
       - name: sc-dashboard-volume
         emptyDir: {}    
-      volumes:
       - name: datasource-config
         configMap:
           name: grafana-datasources

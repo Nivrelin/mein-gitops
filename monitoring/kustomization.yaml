@@ -3,6 +3,7 @@ kind: Kustomization
 
 # Hier kommen deine bestehenden Ressourcen rein
 resources:
+  - cluster-minimal.yaml
   - grafana-setup.yaml
 
 # Hier wird die ConfigMap automatisch generiert
