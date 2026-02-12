@@ -25,6 +25,7 @@ spec:
   certificates:
     serverAltNames:
       - mein-postgres-cluster.cnpg.svc
+---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
