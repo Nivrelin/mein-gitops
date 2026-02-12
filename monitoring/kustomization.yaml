@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Hier kommen deine bestehenden Ressourcen rein
+resources:
+  - grafana-setup.yaml
+
+# Hier wird die ConfigMap automatisch generiert
+configMapGenerator:
+  - name: cnpg-default-dashboard
+    files:
+      - cnpg-dashboard.json
+    options:
+      labels:
+        # Dieses Label ist entscheidend für den Sidecar!
+        grafana_dashboard: "1"
+
+# Verhindert, dass Kustomize eine Zufalls-ID an den Namen hängt
+generatorOptions:
+  disableNameSuffixHash: true

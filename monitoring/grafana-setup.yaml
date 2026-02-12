@@ -58,6 +58,25 @@ spec:
         volumeMounts:
         - name: datasource-config
           mountPath: /etc/grafana/provisioning/datasources
+        - name: sc-dashboard-volume
+          mountPath: /tmp/dashboards  
+      - name: grafana-sc-dashboard
+        image: kiwigrid/k8s-sidecar:latest
+        env:
+        - name: METHOD
+          value: WATCH
+        - name: LABEL
+          value: grafana_dashboard
+        - name: FOLDER
+          value: /tmp/dashboards
+        - name: RESOURCE
+          value: configmap
+        volumeMounts:
+        - name: sc-dashboard-volume
+          mountPath: /tmp/dashboards
+      volumes:
+      - name: sc-dashboard-volume
+        emptyDir: {}    
       volumes:
       - name: datasource-config
         configMap:
