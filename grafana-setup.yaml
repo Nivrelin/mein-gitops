@@ -4,19 +4,6 @@ metadata:
   name: grafana-sa
   namespace: cnpg-cluster-test
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: grafana-sa-monitoring-read
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-monitoring-view
-subjects:
-- kind: ServiceAccount
-  name: grafana-sa
-  namespace: cnpg-cluster-test
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
