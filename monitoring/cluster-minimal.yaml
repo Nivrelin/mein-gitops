@@ -4,7 +4,7 @@ metadata:
   name: mein-postgres-cluster
   namespace: cnpg-cluster-test
 spec:
-  instances: 4
+  instances: 3
 
   # Konfiguration der Datenspeicherung
   storage:
