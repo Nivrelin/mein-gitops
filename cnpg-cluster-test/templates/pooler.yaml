@@ -10,5 +10,7 @@ spec:
   type: {{ .Values.pooler.type }}
   pgbouncer:
     poolMode: {{ .Values.pooler.poolMode }}
-    poolSize: {{ .Values.pooler.poolSize }}
+    # Die Pool-Größe gehört in die parameters-Sektion
+    parameters:
+      default_pool_size: {{ .Values.pooler.poolSize | quote }}
 {{- end }}
