@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/Nivrelin/mein-gitops.git'
     # Hier sagen wir ArgoCD, dass er im Branch "helm" suchen soll:
-    targetRevision: helm 
+    targetRevision: main
     path: cnpg-cluster-test
     helm:
       valueFiles:
