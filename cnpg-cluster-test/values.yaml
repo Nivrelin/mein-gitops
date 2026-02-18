@@ -1,0 +1,17 @@
+# cnpg-cluster-test/values.yaml
+global:
+  namespace: cnpg-cluster-test
+
+cluster:
+  name: mein-postgres-cluster
+  instances: 3
+  storageSize: 1Gi
+  storageClass: hostpath # Wichtig für CRC/Local
+
+grafana:
+  enabled: true
+  image: grafana/grafana:latest
+  prometheusUrl: "https://thanos-querier.openshift-monitoring.svc.cluster.local:9091"
+
+monitoring:
+  releaseLabel: prometheus # Das Label, das dein CRC-Prometheus erwartet

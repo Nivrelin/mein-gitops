@@ -6,7 +6,6 @@ argocd-secret.yaml
 patch-cm.yaml
 patch-namespace.yaml
 patch.yaml
-values.yaml
 argocd/argocd.exe
 argocd/redis.yaml
 helm-v4.1.0-windows-amd64/windows-amd64/helm.exe

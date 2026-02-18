@@ -1,0 +1,25 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Values.clusterName | default "mein-postgres-cluster" }}
+spec:
+  instances: {{ .Values.cluster.instances }}
+  storage:
+    size: {{ .Values.cluster.storageSize }}
+    storageClass: {{ .Values.cluster.storageClass }}
+  monitoring:
+    enablePodMonitor: true
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .Values.cluster.name }}-monitor
+  labels:
+    release: {{ .Values.monitoring.releaseLabel }}
+spec:
+  selector:
+    matchLabels:
+      cnpg.io/cluster: {{ .Values.cluster.name }}
+  podMetricsEndpoints:
+  - port: metrics
+    interval: 30s
