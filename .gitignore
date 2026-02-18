@@ -39,3 +39,4 @@ openshift/.crc/machines/crc/kubeconfig
 dockerfile
 pull-secret
 enable-uwm.yaml
+add-monitoring-manifests.patch
