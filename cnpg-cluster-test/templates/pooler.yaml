@@ -10,5 +10,5 @@ spec:
   type: {{ .Values.pooler.type }}
   pgbouncer:
     poolMode: {{ .Values.pooler.poolMode }}
-    defaultPoolSize: {{ .Values.pooler.defaultPoolSize }}
+    poolSize: {{ .Values.pooler.poolSize }}
 {{- end }}
