@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg-cluster-test
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Nivrelin/mein-gitops.git'
+    # Hier sagen wir ArgoCD, dass er im Branch "helm" suchen soll:
+    targetRevision: helm 
+    path: cnpg-cluster-test
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cnpg-cluster-test
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
