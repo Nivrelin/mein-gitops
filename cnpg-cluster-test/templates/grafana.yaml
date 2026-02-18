@@ -15,7 +15,6 @@ data:
         httpHeaderName1: 'Authorization'
         tlsSkipVerify: true
       secureJsonData:
-        # Dies nutzt den Token des ServiceAccounts, um sich bei Thanos zu authentifizieren
         httpHeaderValue1: 'Bearer ${TOKEN}'
 ---
 apiVersion: v1
@@ -23,7 +22,9 @@ kind: ConfigMap
 metadata:
   name: cnpg-default-dashboard
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "1" # WICHTIG: Das Label, nach dem der Sidecar sucht
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true
 data:
   cnpg-dashboard.json: |-
 {{ .Files.Get "files/cnpg-dashboard.json" | indent 4 }}
@@ -52,7 +53,6 @@ spec:
         env:
         - name: PROMETHEUS_URL
           value: {{ .Values.grafana.prometheusUrl }}
-        # Das TOKEN gehört hier in den env-Bereich, NICHT unter ports!
         - name: TOKEN
           valueFrom:
             secretKeyRef:
@@ -61,9 +61,23 @@ spec:
               optional: true
         volumeMounts:
         - name: datasource-config
-          mountPath: grafana-datasources
+          mountPath: /etc/grafana/provisioning/datasources
         - name: sc-dashboard-volume
           mountPath: /tmp/dashboards
+      # --- HIER IST DER FEHLENDE SIDECAR ---
+      - name: grafana-sc-dashboard
+        image: "kiwigrid/k8s-sidecar:latest"
+        env:
+        - name: LABEL
+          value: "grafana_dashboard"
+        - name: FOLDER
+          value: "/tmp/dashboards"
+        - name: RESOURCE
+          value: "configmap"
+        volumeMounts:
+        - name: sc-dashboard-volume
+          mountPath: /tmp/dashboards
+      # -------------------------------------
       volumes:
       - name: datasource-config
         configMap:
@@ -108,3 +122,25 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: grafana-sa
 type: kubernetes.io/service-account-token
+---
+# Der Sidecar braucht Leserechte auf ConfigMaps
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: grafana-sidecar-role
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: grafana-sidecar-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: grafana-sa
+roleRef:
+  kind: Role
+  name: grafana-sidecar-role
+  apiGroup: rbac.authorization.k8s.io
