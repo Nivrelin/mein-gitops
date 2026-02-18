@@ -6,7 +6,7 @@ cluster:
   name: mein-postgres-cluster
   instances: 3
   storageSize: 1Gi
-  storageClass: hostpath # Wichtig für CRC/Local
+  storageClass: "crc-standard" # Wichtig für CRC/Local
 
 grafana:
   enabled: true
