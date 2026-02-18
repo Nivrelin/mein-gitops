@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: {{ .Values.cluster.name }}-pooler
+spec:
+  cluster:
+    name: {{ .Values.cluster.name }}
+  instances: 2
+  type: rw # 'rw' für Primary, 'ro' für Replicas
+  pgbouncer:
+    poolMode: transaction
+    defaultPoolSize: 20

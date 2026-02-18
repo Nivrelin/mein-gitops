@@ -15,3 +15,10 @@ grafana:
 
 monitoring:
   releaseLabel: prometheus # Das Label, das dein CRC-Prometheus erwartet
+
+pooler:
+  enabled: true
+  instances: 2
+  type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
+  poolMode: transaction # Standard für die meisten Apps
+  defaultPoolSize: 20
