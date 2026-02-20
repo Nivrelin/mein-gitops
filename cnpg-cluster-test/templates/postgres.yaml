@@ -5,6 +5,24 @@ metadata:
 spec:
   imageName: {{ .Values.cluster.imageName | default "ghcr.io/cloudnative-pg/postgresql:18" }}
   instances: {{ .Values.cluster.instances }}
+  {{- if .Values.cluster.bootstrapFrom }}
+  bootstrap:
+    pg_basebackup:
+      source: {{ .Values.cluster.bootstrapFrom }}
+  
+  externalClusters:
+  {{- range .Values.cluster.externalClusters }}
+    - name: {{ .name }}
+      connectionParameters:
+        {{- toYaml .connectionParameters | nindent 8 }}
+      password:
+        {{- toYaml .password | nindent 8 }}
+  {{- end }}
+
+  replica:
+    enabled: {{ .Values.cluster.replicaEnabled }}
+    source: {{ .Values.cluster.bootstrapFrom }}
+  {{- end }}
   storage:
     size: {{ .Values.cluster.storageSize }}
     storageClass: {{ .Values.cluster.storageClass }}
