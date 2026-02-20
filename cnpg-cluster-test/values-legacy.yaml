@@ -4,12 +4,10 @@ clusters:
   - name: "legacy-upgrade-test"
     imageName: "ghcr.io/cloudnative-pg/postgresql:13"
     instances: 3
-    
     managed:
-      roles:
-        - name: "app"
-          login: true
-          replication: true
+    rolename: "app"
+    rolelogin: true
+    replication: true
     
   # Dein neuer v18 Cluster (Grün)
   - name: "green-cluster-v18"
