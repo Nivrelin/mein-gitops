@@ -28,9 +28,9 @@ spec:
   {{- if .managed }} 
   managed:
     roles:
-      - name: {{ .name }}
-        login: {{ .login | default false}}
-        replication: {{ .replication | default false }}
+      - name: {{ .managed.roles.name }}
+        login: {{ .managed.roles.login | default false}}
+        replication: {{ .managed.roles.replication | default false }}
   {{- end}}
   {{- if .bootstrapFrom }}
   externalClusters:
