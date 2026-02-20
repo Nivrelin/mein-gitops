@@ -27,7 +27,7 @@ spec:
         type: microservice
         schemaOnly: true
         databases:
-          - {{ .databases}}
+          - {{ .database}}
         source:
           externalCluster: {{ .bootstrapFrom}}
     {{- end}}
