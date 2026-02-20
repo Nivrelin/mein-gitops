@@ -38,7 +38,9 @@ spec:
       connectionParameters:
         # Wir gehen davon aus, dass der Quell-Cluster im gleichen Namespace liegt
         host: {{ printf "%s-rw.%s.svc.cluster.local" .bootstrapFrom $.Release.Namespace }}
-        user: postgres
+        user: 
+          name: {{ printf "%s-app" .bootstrapFrom}}
+          key: user
       password:
         name: {{ printf "%s-app" .bootstrapFrom }}
         key: password
