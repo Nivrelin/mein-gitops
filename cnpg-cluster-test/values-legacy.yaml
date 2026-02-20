@@ -7,7 +7,7 @@ clusters:
     
     managed:
       roles:
-        - name: app
+        - name: "app"
           login: true
           replication: true
     
