@@ -20,6 +20,7 @@ spec:
       {{- if .initSQL}}
         postInitApplicationSQL:
           {{- range .initSQL}}
+          {{- end}}
       {{- end }}
     {{- else}}
     pg_basebackup:
@@ -28,7 +29,8 @@ spec:
   {{- if .managed }} 
   managed:
     roles:
-      {{- range .roles}} 
+      {{- range .roles}}
+      {{- end}} 
   {{- end}}
   {{- if .bootstrapFrom }}
   externalClusters:
