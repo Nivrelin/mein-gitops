@@ -97,7 +97,7 @@ metadata:
 spec:
   cluster:
     name: {{ .name}}
-  dbname: {{ .database | default app}}
+  dbname: {{ .database | default "app"}}
   name: subscriber
   externalClusterName: {{ .bootstrapFrom}}
   publicationName: publisher
