@@ -5,10 +5,17 @@ clusters:
     imageName: "ghcr.io/cloudnative-pg/postgresql:13"
     instances: 3
     managed:
+<<<<<<< HEAD
       name: "app"
       login: true
       replication: true
     publisher: true
+=======
+    rolename: "app"
+    rolelogin: true
+    replication: true
+    
+>>>>>>> e080e95 (fix: made values file more shallow)
   # Dein neuer v18 Cluster (Grün)
   - name: "green-cluster-v18"
     imageName: "ghcr.io/cloudnative-pg/postgresql:18"
