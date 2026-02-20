@@ -17,8 +17,6 @@ spec:
     initdb:
       database: app
       owner: app
-      secret:
-        name: {{ .name }}-app
     {{- else}}
     pg_basebackup:
       source: {{ .bootstrapFrom }}
