@@ -8,9 +8,9 @@ spec:
   imageName: {{ .imageName | default "ghcr.io/cloudnative-pg/postgresql:16" }}
   instances: {{ .instances | default 3 }}
 
-  superuserSecret:
-    name: {{ .name }}-superuser
-
+  postgresql:
+    pg_hba:
+      - host replication postgres all md5
   bootstrap:  
     {{- if not .bootstrapFrom}}
   # Bootstrap & External Clusters (nur wenn bootstrapFrom definiert ist)
