@@ -8,7 +8,7 @@ clusters:
       name: "app"
       login: true
       replication: true
-    
+    publisher: true
   # Dein neuer v18 Cluster (Grün)
   - name: "green-cluster-v18"
     imageName: "ghcr.io/cloudnative-pg/postgresql:18"
