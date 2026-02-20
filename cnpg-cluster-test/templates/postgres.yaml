@@ -17,11 +17,20 @@ spec:
     initdb:
       database: app
       owner: app
+        {{- if .initSQL}}
+        postInitApplicationSQL:
+          {{- range .initSQL}}
+        {{- end }}
     {{- else}}
     pg_basebackup:
       source: {{ .bootstrapFrom }}
     {{- end}}
-  {{- if .bootstrapFrom}}
+  {{- if .managed }} 
+  managed:
+    roles:
+      {{- range .roles}} 
+  {{- end}}
+  {{- if .bootstrapFrom }}
   externalClusters:
     - name: {{ .bootstrapFrom }}
       connectionParameters:
