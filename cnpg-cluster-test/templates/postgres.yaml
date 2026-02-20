@@ -38,9 +38,7 @@ spec:
       connectionParameters:
         # Wir gehen davon aus, dass der Quell-Cluster im gleichen Namespace liegt
         host: {{ printf "%s-rw.%s.svc.cluster.local" .bootstrapFrom $.Release.Namespace }}
-        user: 
-          name: {{ printf "%s-app" .bootstrapFrom}}
-          key: user
+        user: {{ .rolename }}        
       password:
         name: {{ printf "%s-app" .bootstrapFrom }}
         key: password
