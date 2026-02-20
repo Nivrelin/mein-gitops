@@ -4,15 +4,15 @@ clusters:
   - name: "legacy-upgrade-test"
     imageName: "ghcr.io/cloudnative-pg/postgresql:13"
     instances: 3
+    superuserPassword: "meinSuperSecretPasswort123"
+    appPassowrd: "meinAppPasswort123"
     storageSize: "1Gi"
-    storageClass: "crc-csi-hostpath-provisioner"
 
   # Dein neuer v18 Cluster (Grün)
   - name: "green-cluster-v18"
     imageName: "ghcr.io/cloudnative-pg/postgresql:18"
     instances: 3
     storageSize: "1Gi"
-    storageClass: "crc-csi-hostpath-provisioner"
     
     # Blue-Green Verbindungsinformationen
     bootstrapFrom: "legacy-upgrade-test"
