@@ -1,44 +1,53 @@
+{{- range .Values.clusters }}
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: {{ .Values.cluster.name | default "mein-postgres-cluster" }}
+  name: {{ .name }}
 spec:
-  imageName: {{ .Values.cluster.imageName | default "ghcr.io/cloudnative-pg/postgresql:18" }}
-  instances: {{ .Values.cluster.instances }}
-  {{- if .Values.cluster.bootstrapFrom }}
+  # Nutzt das Image pro Cluster, Standard ist 16 falls nicht definiert
+  imageName: {{ .imageName | default "ghcr.io/cloudnative-pg/postgresql:16" }}
+  instances: {{ .instances | default 3 }}
+
+  # Bootstrap & External Clusters (nur wenn bootstrapFrom definiert ist)
+  {{- if .bootstrapFrom }}
   bootstrap:
     pg_basebackup:
-      source: {{ .Values.cluster.bootstrapFrom }}
+      source: {{ .bootstrapFrom }}
   
   externalClusters:
-  {{- range .Values.cluster.externalClusters }}
-    - name: {{ .name }}
+    - name: {{ .bootstrapFrom }}
       connectionParameters:
-        {{- toYaml .connectionParameters | nindent 8 }}
+        # Wir gehen davon aus, dass der Quell-Cluster im gleichen Namespace liegt
+        host: {{ printf "%s-rw.%s.svc.cluster.local" .bootstrapFrom $.Release.Namespace }}
+        user: postgres
       password:
-        {{- toYaml .password | nindent 8 }}
-  {{- end }}
+        name: {{ printf "%s-superuser" .bootstrapFrom }}
+        key: password
 
   replica:
-    enabled: {{ .Values.cluster.replicaEnabled }}
-    source: {{ .Values.cluster.bootstrapFrom }}
+    enabled: {{ if (hasKey . "replicaEnabled") }}{{ .replicaEnabled }}{{ else }}true{{ end }}
+    source: {{ .bootstrapFrom }}
   {{- end }}
+
   storage:
-    size: {{ .Values.cluster.storageSize }}
-    storageClass: {{ .Values.cluster.storageClass }}
+    size: {{ .storageSize | default "1Gi" }}
+    storageClass: {{ .storageClass | default "crc-csi-hostpath-provisioner" }}
+  
   monitoring:
     enablePodMonitor: true
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: {{ .Values.cluster.name }}-monitor
+  name: {{ .name }}-monitor
   labels:
-    release: {{ .Values.monitoring.releaseLabel }}
+    release: {{ $.Values.monitoring.releaseLabel | default "prometheus" }}
 spec:
   selector:
     matchLabels:
-      cnpg.io/cluster: {{ .Values.cluster.name }}
+      cnpg.io/cluster: {{ .name }}
   podMetricsEndpoints:
   - port: metrics
     interval: 30s
+---
+{{- end }}

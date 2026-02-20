@@ -1,18 +1,29 @@
-cluster:
-  name: "green-cluster-v18" # Neuer Name für Blue-Green
-  imageName: "ghcr.io/cloudnative-pg/postgresql:18"
-  instances: 3
-  storageSize: "1Gi"
-  storageClass: "crc-csi-hostpath-provisioner"
-  
-  # Blue-Green Logik (Ziel: der v13 Cluster im selben Namespace)
-  bootstrapFrom: "legacy-upgrade-test" # Name des alten Clusters
-  replicaEnabled: true
-  externalClusters:
-    - name: "legacy-upgrade-test"
-      connectionParameters:
-        host: "legacy-upgrade-test-rw.cnpg-cluster-test-legacy.svc.cluster.local"
-        user: "postgres"
-      password:
-        name: "legacy-upgrade-test-superuser"
-        key: "password"
+# WICHTIG: Die Variable heißt jetzt "clusters" (Plural) und ist eine Liste
+clusters:
+  # Dein bestehender v13 Cluster (Blau)
+  - name: "legacy-upgrade-test"
+    imageName: "ghcr.io/cloudnative-pg/postgresql:13"
+    instances: 3
+    storageSize: "1Gi"
+    storageClass: "crc-csi-hostpath-provisioner"
+
+  # Dein neuer v18 Cluster (Grün)
+  - name: "green-cluster-v18"
+    imageName: "ghcr.io/cloudnative-pg/postgresql:18"
+    instances: 3
+    storageSize: "1Gi"
+    storageClass: "crc-csi-hostpath-provisioner"
+    
+    # Blue-Green Verbindungsinformationen
+    bootstrapFrom: "legacy-upgrade-test"
+    replicaEnabled: true
+
+monitoring:
+  releaseLabel: prometheus
+
+# Falls du Pooler oder Grafana nutzt, müssten diese Templates ebenfalls 
+# in Schleifen gepackt werden, oder du lässt sie erst mal deaktiviert:
+pooler:
+  enabled: false
+grafana:
+  enabled: false
