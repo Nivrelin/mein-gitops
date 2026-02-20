@@ -7,18 +7,14 @@ spec:
   # Nutzt das Image pro Cluster, Standard ist 16 falls nicht definiert
   imageName: {{ .imageName | default "ghcr.io/cloudnative-pg/postgresql:16" }}
   instances: {{ .instances | default 3 }}
-  {{- if .superuserSecret}}
+  {{- if not .bootstrapFrom}}
   # Bootstrap & External Clusters (nur wenn bootstrapFrom definiert ist)
   bootstrap:
     initdb:
       database: app
       owner: app
-      secret:
-        name: {{ .name }}-app
-  superuserSecret:
-    name: {{ .superuserSecret.name }}
   {{- end}}
-  
+
   {{- if .bootstrapFrom }}
   bootstrap:
     pg_basebackup:
