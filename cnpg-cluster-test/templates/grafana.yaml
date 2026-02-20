@@ -164,4 +164,4 @@ roleRef:
   kind: Role
   name: grafana-sidecar-role
   apiGroup: rbac.authorization.k8s.io
-{{ -end }}
+{{ - end }}
