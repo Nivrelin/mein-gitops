@@ -69,4 +69,18 @@ spec:
   - port: metrics
     interval: 30s
 ---
+{{- if .publisher}}
+apiVersion: postgresql.cnpg.io/v1
+kind: Publication
+metadata:
+  name:  {{ .name}}-publisher
+spec:
+  cluster:
+    name: {{ .name}}
+  dbname: app
+  name: publisher
+  target:
+    allTables: true
+---
+{{- end }}
 {{- end }}
