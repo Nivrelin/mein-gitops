@@ -29,7 +29,7 @@ spec:
   managed:
     roles:
       - name: {{ $.Values.cluster.managed.name }}
-        login: {{ $.Values.cluster.managed.login | default true}}
+        login: {{ $.Values.cluster.managed.rolelogin | default true}}
         replication: {{ $.Values.cluster.managed.replication | default true }}
   {{- end}}
   {{- if .bootstrapFrom }}
