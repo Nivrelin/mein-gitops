@@ -1,0 +1,9 @@
+cluster:
+  name: "legacy-postgres-cluster"
+  imageName: "ghcr.io/cloudnative-pg/postgresql:13" # Hier die niedrigere Version
+  instances: 2
+  storageSize: "1Gi"
+  storageClass: "crc-csi-hostpath-provisioner"
+
+monitoring:
+  releaseLabel: prometheus # Muss zum Prometheus-Stack passen

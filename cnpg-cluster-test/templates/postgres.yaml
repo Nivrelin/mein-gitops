@@ -1,8 +1,9 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: {{ .Values.clusterName | default "mein-postgres-cluster" }}
+  name: {{ .Values.cluster.name | default "mein-postgres-cluster" }}
 spec:
+  imageName: {{ .Values.cluster.imageName | default "ghcr.io/cloudnative-pg/postgresql:18" }}
   instances: {{ .Values.cluster.instances }}
   storage:
     size: {{ .Values.cluster.storageSize }}
