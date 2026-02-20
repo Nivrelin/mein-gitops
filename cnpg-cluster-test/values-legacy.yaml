@@ -1,9 +1,16 @@
 cluster:
-  name: "legacy-postgres-cluster"
+  name: "legacy-upgrade-test"
   imageName: "ghcr.io/cloudnative-pg/postgresql:13" # Hier die niedrigere Version
-  instances: 2
+  instances: 3
   storageSize: "1Gi"
   storageClass: "crc-csi-hostpath-provisioner"
+  bootstrapFrom: ""
+  replicaEnabled: false
 
 monitoring:
   releaseLabel: prometheus # Muss zum Prometheus-Stack passen
+
+grafana:
+  enabled: false
+pooler:
+  enabled: false
