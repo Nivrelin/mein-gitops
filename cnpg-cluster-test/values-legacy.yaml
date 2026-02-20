@@ -8,15 +8,15 @@ clusters:
     storageClass: "crc-csi-hostpath-provisioner"
 
   # Dein neuer v18 Cluster (Grün)
-#  - name: "green-cluster-v18"
-#    imageName: "ghcr.io/cloudnative-pg/postgresql:18"
-#    instances: 3
-#    storageSize: "1Gi"
-#    storageClass: "crc-csi-hostpath-provisioner"
+  - name: "green-cluster-v18"
+    imageName: "ghcr.io/cloudnative-pg/postgresql:18"
+    instances: 3
+    storageSize: "1Gi"
+    storageClass: "crc-csi-hostpath-provisioner"
     
     # Blue-Green Verbindungsinformationen
-#    bootstrapFrom: "legacy-upgrade-test"
-#    replicaEnabled: true
+    bootstrapFrom: "legacy-upgrade-test"
+    replicaEnabled: true
 
 monitoring:
   releaseLabel: prometheus
