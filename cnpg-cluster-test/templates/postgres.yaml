@@ -17,10 +17,10 @@ spec:
     initdb:
       database: app
       owner: app
-        {{- if .initSQL}}
+      {{- if .initSQL}}
         postInitApplicationSQL:
           {{- range .initSQL}}
-        {{- end }}
+      {{- end }}
     {{- else}}
     pg_basebackup:
       source: {{ .bootstrapFrom }}
