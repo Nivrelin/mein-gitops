@@ -4,10 +4,7 @@ clusters:
   - name: "legacy-upgrade-test"
     imageName: "ghcr.io/cloudnative-pg/postgresql:13"
     instances: 3
-    initSQL:
-      - CREATE TABLE n (i SERIAL PRIMARY KEY, m INTEGER)
-      - INSERT INTO n (m) (SELECT generate_series(1,10000))
-      - ALTER TABLE n OWNER TO app
+    
     managed:
       roles:
         - name: app

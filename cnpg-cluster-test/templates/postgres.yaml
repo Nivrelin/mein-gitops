@@ -17,11 +17,10 @@ spec:
     initdb:
       database: app
       owner: app
-      {{- if .initSQL}}
-        postInitApplicationSQL:
-          {{- range .initSQL}}
-          {{- end}}
-      {{- end }}
+      postInitApplicationSQL:
+        - CREATE TABLE n (i SERIAL PRIMARY KEY, m INTEGER)
+        - INSERT INTO n (m) (SELECT generate_series(1,10000))
+        - ALTER TABLE n OWNER TO app
     {{- else}}
     pg_basebackup:
       source: {{ .bootstrapFrom }}
@@ -29,8 +28,9 @@ spec:
   {{- if .managed }} 
   managed:
     roles:
-      {{- range .roles}}
-      {{- end}} 
+      - name: {{ .roles.name }}
+        login: {{ .roles.login }}
+        replication: {{ .roles.replication }}
   {{- end}}
   {{- if .bootstrapFrom }}
   externalClusters:
