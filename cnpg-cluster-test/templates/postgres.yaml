@@ -44,14 +44,11 @@ spec:
       connectionParameters:
         # Wir gehen davon aus, dass der Quell-Cluster im gleichen Namespace liegt
         host: {{ printf "%s-rw.%s.svc.cluster.local" .bootstrapFrom $.Release.Namespace }}
-        user: app       
+        user: app
+        dbname: {{ .database}}       
       password:
         name: {{ printf "%s-app" .bootstrapFrom }}
         key: password
-
-  replica:
-    enabled: {{ if (hasKey . "replicaEnabled") }}{{ .replicaEnabled }}{{ else }}true{{ end }}
-    source: {{ .bootstrapFrom }}
   {{- end }}
 
   storage:
