@@ -22,8 +22,14 @@ spec:
         - INSERT INTO n (m) (SELECT generate_series(1,10000))
         - ALTER TABLE n OWNER TO app
     {{- else}}
-    pg_basebackup:
-      source: {{ .bootstrapFrom }}
+    initdb:
+      import:
+        type: microservice
+        schemaOnly: true
+        databases:
+          - {{ .databases}}
+        source:
+          externalCluster: {{ .bootstrapFrom}}
     {{- end}}
   {{- if .managed }} 
   managed:
@@ -81,6 +87,19 @@ spec:
   name: publisher
   target:
     allTables: true
+{{- end }}
 ---
+{{- if .bootstrapFrom}}
+apiVersion: postgresql.cnpg.io/v1
+kind: Subscription
+metadata:
+  name: {{ .bootstrapFrom}}-to-{{ .name}}-Subscription
+spec:
+  cluster:
+    name: {{ .name}}
+  dbname: {{ .database | default app}}
+  name: subscriber
+  externalClusterName: {{ .bootstrapFrom}}
+  publicationName: publisher
 {{- end }}
 {{- end }}

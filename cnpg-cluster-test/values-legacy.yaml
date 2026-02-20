@@ -8,6 +8,7 @@ clusters:
     rolename: "app"
     rolelogin: true
     replication: true
+    publication: true
     
   # Dein neuer v18 Cluster (Grün)
   - name: "green-cluster-v18"
@@ -16,6 +17,7 @@ clusters:
         
     # Blue-Green Verbindungsinformationen
     bootstrapFrom: "legacy-upgrade-test"
+    databases: "app"
     replicaEnabled: true
 
 monitoring:
