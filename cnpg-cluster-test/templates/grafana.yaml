@@ -1,3 +1,4 @@
+{{- if .Values.grafana.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -163,3 +164,4 @@ roleRef:
   kind: Role
   name: grafana-sidecar-role
   apiGroup: rbac.authorization.k8s.io
+{{ -end }}
