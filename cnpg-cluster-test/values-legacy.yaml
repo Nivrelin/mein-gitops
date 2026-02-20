@@ -4,6 +4,8 @@ clusters:
   - name: "legacy-upgrade-test"
     imageName: "ghcr.io/cloudnative-pg/postgresql:13"
     instances: 3
+    superuserSecret:
+      name: "legacy-upgrade-test-superuser"
     storageSize: "1Gi"
     storageClass: "crc-csi-hostpath-provisioner"
 
