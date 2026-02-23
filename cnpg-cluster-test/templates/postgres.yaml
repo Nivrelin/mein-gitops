@@ -21,6 +21,7 @@ spec:
         - CREATE TABLE n (i SERIAL PRIMARY KEY, m INTEGER)
         - INSERT INTO n (m) (SELECT generate_series(1,10000))
         - ALTER TABLE n OWNER TO app
+        - ALTER USER app REPLICATION
     {{- else}}
     initdb:
       import:
