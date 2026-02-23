@@ -3,12 +3,7 @@ clusters:
   # Dein bestehender v13 Cluster (Blau)
   - name: "green-cluster-v18"
     imageName: "ghcr.io/cloudnative-pg/postgresql:18"
-    instances: 3
-        
-    # Blue-Green Verbindungsinformationen
-    bootstrapFrom: "legacy-upgrade-test"
-    database: "app"
-    replicaEnabled: false
+    instances: 3 
 
 monitoring:
   releaseLabel: prometheus
@@ -16,6 +11,6 @@ monitoring:
 # Falls du Pooler oder Grafana nutzt, müssten diese Templates ebenfalls 
 # in Schleifen gepackt werden, oder du lässt sie erst mal deaktiviert:
 pooler:
-  enabled: false
+  enabled: true
 grafana:
-  enabled: false
+  enabled: true
