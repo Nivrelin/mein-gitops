@@ -1,16 +1,6 @@
 # WICHTIG: Die Variable heißt jetzt "clusters" (Plural) und ist eine Liste
 clusters:
   # Dein bestehender v13 Cluster (Blau)
-  - name: "legacy-upgrade-test"
-    imageName: "ghcr.io/cloudnative-pg/postgresql:16"
-    instances: 3
-    managed:
-    rolename: "app"
-    rolelogin: true
-    replication: true
-    publication: true
-    
-  # Dein neuer v18 Cluster (Grün)
   - name: "green-cluster-v18"
     imageName: "ghcr.io/cloudnative-pg/postgresql:18"
     instances: 3
