@@ -72,7 +72,7 @@ spec:
   - port: metrics
     interval: 30s
 ---
-{{- if .publisher}}
+{{- if .publication}}
 apiVersion: postgresql.cnpg.io/v1
 kind: Publication
 metadata:
