@@ -2,7 +2,7 @@
 clusters:
   # Dein bestehender v13 Cluster (Blau)
   - name: "legacy-upgrade-test"
-    imageName: "ghcr.io/cloudnative-pg/postgresql:13"
+    imageName: "ghcr.io/cloudnative-pg/postgresql:14"
     instances: 3
     managed:
     rolename: "app"
