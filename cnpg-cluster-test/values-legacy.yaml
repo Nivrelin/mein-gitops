@@ -18,7 +18,7 @@ clusters:
     # Blue-Green Verbindungsinformationen
     bootstrapFrom: "legacy-upgrade-test"
     database: "app"
-    replicaEnabled: true
+    replicaEnabled: false
 
 monitoring:
   releaseLabel: prometheus
