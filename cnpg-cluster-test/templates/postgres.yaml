@@ -22,7 +22,7 @@ spec:
         - INSERT INTO n (m) (SELECT generate_series(1,10000))
         - ALTER TABLE n OWNER TO app
         - ALTER USER app REPLICATION
-    {{- elseif .replicaEnabled}}
+    {{- else if .replicaEnabled}}
       import:
         type: microservice
         schemaOnly: true
