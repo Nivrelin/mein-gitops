@@ -13,7 +13,7 @@ spec:
     poolMode: {{ .pooler.poolMode | default "transaction" }}
     # Die Pool-Größe gehört in die parameters-Sektion
     parameters:
-      default_pool_size: {{ .pooler.poolSize | default "20" }}
+      default_pool_size: {{ .pooler.poolSize | default 20 }}
 ---
 {{- if .pooler.monitoring }}
 apiVersion: monitoring.coreos.com/v1
