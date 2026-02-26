@@ -2,7 +2,7 @@
 global:
   namespace: cnpg-cluster-test
 
-cluster:
+clusters:
   name: mein-postgres-cluster
   instances: 3
   storageSize: 1Gi
