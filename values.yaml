@@ -3,10 +3,10 @@ global:
   namespace: cnpg-cluster-test
 
 clusters:
-  name: mein-postgres-cluster
-  instances: 3
-  storageSize: 1Gi
-  storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local
+  - name: "mein-postgres-cluster"
+    instances: 3
+    storageSize: 1Gi
+    storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local
 
 grafana:
   enabled: true
