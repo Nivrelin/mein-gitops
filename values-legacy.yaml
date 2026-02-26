@@ -9,7 +9,7 @@ clusters:
       instances: 2
       type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
       poolMode: transaction # Standard für die meisten Apps
-      poolSize: "20"
+      poolSize: 20
       monitoring: true
 
 monitoring:
