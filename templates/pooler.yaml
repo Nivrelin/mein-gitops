@@ -15,7 +15,7 @@ spec:
     parameters:
       default_pool_size: {{ .pooler.poolSize | quote }}
 ---
-{{- if .pooler.monitoring.enabled }}
+{{- if .pooler.monitoring }}
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:

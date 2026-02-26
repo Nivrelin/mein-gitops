@@ -9,8 +9,8 @@ clusters:
       type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
       poolMode: transaction # Standard für die meisten Apps
       poolSize: "20"
-      monitoring:
-        enabled: true
+      monitoring: true
+        
 grafana:
   enabled: true
   image: grafana/grafana:latest
