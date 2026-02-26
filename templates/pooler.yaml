@@ -1,4 +1,5 @@
-{{- if .Values.pooler.enabled -}}
+{{- range.Values.clusters }}
+{{- if .Values.pooler.enabled }}
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
 metadata:
@@ -13,4 +14,5 @@ spec:
     # Die Pool-Größe gehört in die parameters-Sektion
     parameters:
       default_pool_size: {{ .Values.pooler.poolSize | quote }}
+{{- end }}
 {{- end }}
