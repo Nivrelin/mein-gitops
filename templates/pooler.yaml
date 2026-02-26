@@ -7,13 +7,13 @@ metadata:
 spec:
   cluster:
     name: {{ .name }}
-  instances: {{ .pooler.instances }}
-  type: {{ .pooler.type }}
+  instances: {{ .pooler.instances | default 2 }}
+  type: {{ .pooler.type | default "rw" }}
   pgbouncer:
-    poolMode: {{ .pooler.poolMode }}
+    poolMode: {{ .pooler.poolMode | default "transaction" }}
     # Die Pool-Größe gehört in die parameters-Sektion
     parameters:
-      default_pool_size: {{ .pooler.poolSize | quote }}
+      default_pool_size: {{ .pooler.poolSize | default "20" }}
 ---
 {{- if .pooler.monitoring }}
 apiVersion: monitoring.coreos.com/v1
