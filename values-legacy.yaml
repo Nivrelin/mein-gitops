@@ -4,13 +4,14 @@ clusters:
   - name: "green-cluster-v18"
     imageName: "ghcr.io/cloudnative-pg/postgresql:18"
     instances: 3 
+    pooler:
+      enabled: true
 
 monitoring:
   releaseLabel: prometheus
 
 # Falls du Pooler oder Grafana nutzt, müssten diese Templates ebenfalls 
 # in Schleifen gepackt werden, oder du lässt sie erst mal deaktiviert:
-pooler:
-  enabled: true
+
 grafana:
   enabled: true
