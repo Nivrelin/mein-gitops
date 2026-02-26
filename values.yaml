@@ -3,7 +3,14 @@ clusters:
     instances: 3
     storageSize: 1Gi
     storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local
-
+    pooler:
+      enabled: true
+      instances: 2
+      type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
+      poolMode: transaction # Standard für die meisten Apps
+      poolSize: "20"
+      monitoring:
+        enabled: true
 grafana:
   enabled: true
   image: grafana/grafana:latest
@@ -12,9 +19,3 @@ grafana:
 monitoring:
   releaseLabel: prometheus # Das Label, das dein CRC-Prometheus erwartet
 
-pooler:
-  enabled: true
-  instances: 2
-  type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
-  poolMode: transaction # Standard für die meisten Apps
-  poolSize: "20"
