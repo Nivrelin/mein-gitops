@@ -1,7 +1,3 @@
-# cnpg-cluster-test/values.yaml
-global:
-  namespace: cnpg-cluster-test
-
 clusters:
   - name: "mein-postgres-cluster"
     instances: 3
