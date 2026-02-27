@@ -3,6 +3,7 @@ clusters:
     instances: 3
     storageSize: 1Gi
     storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local
+    enablePDB: true
     pooler:
       enabled: true
       instances: 2

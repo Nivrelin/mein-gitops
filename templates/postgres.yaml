@@ -7,7 +7,7 @@ spec:
   # Nutzt das Image pro Cluster, Standard ist 16 falls nicht definiert
   imageName: {{ .imageName | default "ghcr.io/cloudnative-pg/postgresql:18" }}
   instances: {{ .instances | default 3 }}
-
+  enablePDB: {{ .enablePDB | default false }} 
   postgresql:
     pg_hba:
       - host replication app all md5
