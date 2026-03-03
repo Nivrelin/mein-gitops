@@ -4,7 +4,7 @@ metadata:
   name: cnpg-main-dashboard
   namespace: cnpg-cluster-test
   labels:
-    app: grafana # <--- Das muss zum Selector der Instanz oben passen!
+    dashboards: grafana # <--- Das muss zum Selector der Instanz oben passen!
 spec:
   instanceSelector:
     matchLabels:
