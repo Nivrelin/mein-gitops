@@ -6,7 +6,8 @@ metadata:
   labels:
     dashboards: grafana # <--- Das muss zum Selector der Instanz oben passen!
 spec:
-  instanceSelector:
+    allowCrossNamespaceImport: true
+    instanceSelector:
     matchLabels:
       dashboards: "grafana"
   url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/files/cnpg-dashboard.json
