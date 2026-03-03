@@ -1,0 +1,12 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: cnpg-main-dashboard
+  namespace: cnpg-cluster-test
+  labels:
+    app: grafana # <--- Das muss zum Selector der Instanz oben passen!
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/dashboards/cnpg-dashboard.json
