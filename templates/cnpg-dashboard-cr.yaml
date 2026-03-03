@@ -9,4 +9,4 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
-  url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/dashboards/cnpg-dashboard.json
+  url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/files/cnpg-dashboard.json
