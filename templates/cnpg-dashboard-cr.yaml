@@ -29,7 +29,28 @@ spec:
         url: "https://thanos-querier.openshift-monitoring.svc:9091"
         isDefault: true
         jsonData:
-            timeInterval: "5s"
+            httpHeaderName1: 'Authorization'
             tlsSkipVerify: true
-        database: prometheus
+        secureJsonData:
+            httpHeaderValue1: 'Bearer ${TOKEN}'
+    valuesFrom:
+        - target: secureJsonData.httpHeaderValue1
+          secretKeyRef:
+              name: grafana-sa-token
+              key: token
+              prefix: "Bearer"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: grafana-cnpg-read-binding
+  namespace: cnpg-cluster-test
+roleRef:
+ apiGroup: rbac.authorization.k8s.io
+    kind: Clusterrole
+    name: cluster-monitoring-view
+subjects:
+- kind: ServiceAccount
+  name: grafana-monitoring-sa
+  namespace: monitoring-system
             
