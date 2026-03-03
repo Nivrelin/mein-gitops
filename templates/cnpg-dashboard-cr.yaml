@@ -9,5 +9,5 @@ spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-    dashboards: "grafana"
+        dashboards: "grafana"
   url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/files/cnpg-dashboard.json
