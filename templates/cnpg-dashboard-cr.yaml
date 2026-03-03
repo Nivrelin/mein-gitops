@@ -36,9 +36,9 @@ spec:
     valuesFrom:
         - target: secureJsonData.httpHeaderValue1
           secretKeyRef:
-              name: grafana-sa-token
-              key: token
-              prefix: "Bearer"
+            name: grafana-sa-token
+            key: token
+            prefix: "Bearer"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
