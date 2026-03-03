@@ -35,11 +35,10 @@ spec:
       httpHeaderValue1: 'Bearer ${TOKEN}'
   valuesFrom:
     - target: secureJsonData.httpHeaderValue1
-      source:
-        secretKeyRef:
-          name: grafana-sa-token
-          key: token
-          prefix: "Bearer " # Leerzeichen nach Bearer nicht vergessen!
+      secretKeyRef:
+        name: grafana-sa-token
+        key: token
+        prefix: "Bearer " # Leerzeichen nach Bearer nicht vergessen!
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
