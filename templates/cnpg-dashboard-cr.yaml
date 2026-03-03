@@ -4,12 +4,12 @@ metadata:
   name: cnpg-main-dashboard
   namespace: cnpg-cluster-test
   labels:
-    dashboards: grafana # <--- Das muss zum Selector der Instanz oben passen!
+    dashboards: grafana
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-        dashboards: "grafana"
+      dashboards: "grafana"
   url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/files/cnpg-dashboard.json
 ---
 apiVersion: grafana.integreatly.org/v1beta1
@@ -18,27 +18,27 @@ metadata:
   name: cnpg-datasource
   namespace: cnpg-cluster-test
 spec:
-    instanceSelector:
-        matchLabels:
-            dashboards: "grafana"
-    allowCrossNamespaceImport: true
-    datasource:
-        name: OpenShift-Prometheus
-        type: prometheus
-        access: proxy
-        url: "https://thanos-querier.openshift-monitoring.svc:9091"
-        isDefault: true
-        jsonData:
-            httpHeaderName1: 'Authorization'
-            tlsSkipVerify: true
-        secureJsonData:
-            httpHeaderValue1: 'Bearer ${TOKEN}'
-    valuesFrom:
-        - target: secureJsonData.httpHeaderValue1
-          secretKeyRef:
-            name: grafana-sa-token
-            key: token
-            prefix: "Bearer"
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  allowCrossNamespaceImport: true
+  datasource:
+    name: OpenShift-Prometheus
+    type: prometheus
+    access: proxy
+    url: "https://thanos-querier.openshift-monitoring.svc:9091"
+    isDefault: true
+    jsonData:
+      httpHeaderName1: 'Authorization'
+      tlsSkipVerify: true
+    secureJsonData:
+      httpHeaderValue1: 'Bearer ${TOKEN}'
+  valuesFrom:
+    - target: secureJsonData.httpHeaderValue1
+      secretKeyRef:
+        name: grafana-sa-token
+        key: token
+        prefix: "Bearer " # Leerzeichen nach Bearer nicht vergessen!
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -46,11 +46,10 @@ metadata:
   name: grafana-cnpg-read-binding
   namespace: cnpg-cluster-test
 roleRef:
- apiGroup: rbac.authorization.k8s.io
-    kind: Clusterrole
-    name: cluster-monitoring-view
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole # Case-sensitive!
+  name: cluster-monitoring-view
 subjects:
-- kind: ServiceAccount
-  name: grafana-monitoring-sa
-  namespace: monitoring-system
-            
+  - kind: ServiceAccount
+    name: grafana-monitoring-sa
+    namespace: monitoring-system
