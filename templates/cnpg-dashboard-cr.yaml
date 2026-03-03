@@ -33,12 +33,6 @@ spec:
       tlsSkipVerify: true
     secureJsonData:
       httpHeaderValue1: 'Bearer ${TOKEN}'
-  valuesFrom:
-    - target: secureJsonData.httpHeaderValue1
-      secretKeyRef:
-        name: grafana-sa-token
-        key: token
-        prefix: "Bearer " # Leerzeichen nach Bearer nicht vergessen!
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
