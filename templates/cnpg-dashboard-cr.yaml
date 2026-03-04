@@ -26,7 +26,7 @@ spec:
     name: OpenShift-Prometheus
     type: prometheus
     access: proxy
-    url: "https://thanos-querier.openshift-monitoring.svc.cluster.local:9091"
+    url: "https://thanos-querier.openshift-user-workload-monitoring.svc.cluster.local:9092"
     isDefault: true
     jsonData:
       httpHeaderName1: 'Authorization'
