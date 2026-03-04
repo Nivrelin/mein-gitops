@@ -43,7 +43,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole # Case-sensitive!
-  name: cluster-monitoring-view
+  name: view
 subjects:
   - kind: ServiceAccount
     name: grafana-monitoring-sa
