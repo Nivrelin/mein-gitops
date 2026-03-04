@@ -30,11 +30,10 @@ spec:
     isDefault: true
     jsonData:
       httpHeaderName1: 'Authorization'
-      tlsSkipVerify: true
-      httpHeaderValue1: 'Bearer '
+      tlsSkipVerify: true     
       forwardOauthIdentity: false
     secureJsonData:
-      httpHeaderValue1: 'Bearer ${TOKEN}'
+      httpHeaderValue1: 'Bearer ${token}'
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
