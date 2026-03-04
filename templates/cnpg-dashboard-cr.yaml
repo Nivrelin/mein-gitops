@@ -55,5 +55,5 @@ metadata:
   name: grafana-sidecar-role
 rules:
 - apiGroups: [""]
-  resources: ["configmaps"]
+  resources: ["GrafanaDashboard", "GrafanaDatasource"]
   verbs: ["get", "list", "watch"]
