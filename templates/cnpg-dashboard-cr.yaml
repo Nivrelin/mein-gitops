@@ -45,5 +45,5 @@ roleRef:
   name: cluster-monitoring-view
 subjects:
   - kind: ServiceAccount
-    name: grafana-monitoring-sa
+    name: grafana-instance-sa
     namespace: monitoring-system
