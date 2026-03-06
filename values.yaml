@@ -1,22 +1,21 @@
-clusters:
-  - name: "mein-postgres-cluster"
+cluster:
+    fullname: "mein-postgres-cluster"
     instances: 3
     storageSize: 1Gi
-    storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local
-    enablePDB: true
-    pooler:
-      enabled: true
-      instances: 2
-      type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
-      poolMode: transaction # Standard für die meisten Apps
-      poolSize: "20"
-      monitoring: true
-        
+    storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local  
+    poolers:
+      - enabled: true
+        instances: 2
+        type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
+        poolMode: transaction # Standard für die meisten Apps
+        poolSize: "20"
+        monitoring:
+          enabled: true
+          releaseLabel: prometheus # Das Label, das dein CRC-Prometheus erwartet  
 grafana:
   enabled: true
   image: grafana/grafana:latest
   prometheusUrl: "https://thanos-querier.openshift-monitoring.svc.cluster.local:9091"
 
-monitoring:
-  releaseLabel: prometheus # Das Label, das dein CRC-Prometheus erwartet
+  
 
