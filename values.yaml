@@ -8,14 +8,14 @@ cluster:
     storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local  
     monitoring:
       enabled: true
-      podMonitor: 
-        enabled: true
-        prometheusRule:
+      prometheusRule:
           excludeRules:
             - CNPGClusterLogicalReplicationErrorsCritical
             - CNPGClusterLogicalReplicationErrors
             - CNPGClusterLogicalReplicationStoppedCritical
             - CNPGClusterLogicalReplicationStopped
+      podMonitor: 
+        enabled: true       
   poolers:
     - name: rw
       instances: 2
@@ -30,6 +30,12 @@ cluster:
             - sourceLabels: [__meta_kubernetes_pod_label_app]
               regex: mein-postgres-cluster
               action: keep
+          prometheusRule:
+        excludeRules:
+          - CNPGClusterLogicalReplicationErrorsCritical
+          - CNPGClusterLogicalReplicationErrors
+          - CNPGClusterLogicalReplicationStoppedCritical
+          - CNPGClusterLogicalReplicationStopped
     - name: ro
       instances: 2
       type: ro # rw = Read/Write (Primary), ro = Read Only (Replicas)
