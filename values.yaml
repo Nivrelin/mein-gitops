@@ -11,11 +11,11 @@ cluster:
       podMonitor: 
         enabled: true
         prometheusRule:
-        excludeRules:
-          - CNPGClusterLogicalReplicationErrorsCritical
-          - CNPGClusterLogicalReplicationErrors
-          - CNPGClusterLogicalReplicationStoppedCritical
-          - CNPGClusterLogicalReplicationStopped
+          excludeRules:
+            - CNPGClusterLogicalReplicationErrorsCritical
+            - CNPGClusterLogicalReplicationErrors
+            - CNPGClusterLogicalReplicationStoppedCritical
+            - CNPGClusterLogicalReplicationStopped
   poolers:
     - name: rw
       instances: 2
