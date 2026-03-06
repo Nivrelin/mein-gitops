@@ -1,17 +1,40 @@
 cluster:
     fullname: "mein-postgres-cluster"
-    instances: 3
-    storageSize: 1Gi
-    storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local  
+    cluster:
+      instances: 3
+      storageSize: 1Gi
+      storageClass: "crc-csi-hostpath-provisioner " # Wichtig für CRC/Local  
+      monitoring:
+        enabled: true
+        podMonitor: 
+          enabled: true
     poolers:
-      - enabled: true
+      - name: rw
         instances: 2
         type: rw # rw = Read/Write (Primary), ro = Read Only (Replicas)
         poolMode: transaction # Standard für die meisten Apps
         poolSize: "20"
         monitoring:
           enabled: true
-          releaseLabel: prometheus # Das Label, das dein CRC-Prometheus erwartet  
+          podMonitor:
+            enabled: true
+            relabelings:
+              - sourceLabels: [__meta_kubernetes_pod_label_app]
+                regex: mein-postgres-cluster
+                action: keep
+      - name: ro
+        instances: 2
+        type: ro # rw = Read/Write (Primary), ro = Read Only (Replicas)
+        poolMode: transaction # Standard für die meisten Apps
+        poolSize: "20"
+        monitoring:
+          enabled: true
+          podMonitor:
+            enabled: true
+            relabelings:
+              - sourceLabels: [__meta_kubernetes_pod_label_app]
+                regex: mein-postgres-cluster
+                action: keep        
 grafana:
   enabled: true
   image: grafana/grafana:latest
