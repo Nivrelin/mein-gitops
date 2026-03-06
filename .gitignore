@@ -3,3 +3,4 @@ k9s/*
 openshift/*
 /charts/*
 /templates/*
+blub.yaml

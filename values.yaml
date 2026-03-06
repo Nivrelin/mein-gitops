@@ -1,5 +1,7 @@
 ---
 cluster:
+  version: 
+    postgresql: "18"
   cluster:
     instances: 3
     storageSize: 1Gi
