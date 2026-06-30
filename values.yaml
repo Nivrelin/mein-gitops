@@ -50,7 +50,7 @@ cluster:
               regex: mein-postgres-cluster
               action: keep        
 grafana:
-  enabled: false
+  enabled: true
   image: grafana/grafana:latest
   prometheusUrl: "https://thanos-querier.openshift-monitoring.svc.cluster.local:9091"
 
