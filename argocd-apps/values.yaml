@@ -24,7 +24,7 @@ applications:
     type: external
     namespace: monitoring-system
     # Für externe OCI-Charts konfigurieren wir das im Template mit (siehe Schritt 3)
-    repoURL: https://grafana.github.io/grafana-operator
+    repoURL: https://grafana.github.io/helm-charts
     chart: grafana-operator
     targetRevision: 5.15.1
     inlineValues: 
