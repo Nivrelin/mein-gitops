@@ -8,7 +8,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: {{ .project | default "default" }}
   source:
     {{- if eq .type "github" }}
     repoURL: {{ cat "https://github.com/Nivrelin/" .repoName | nospace | quote }}

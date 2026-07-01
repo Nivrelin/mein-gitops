@@ -2,6 +2,7 @@ applications:
   - name: root-application
     type: github
     repoName: mein-gitops
+    project: infrastructure
     targetRevision: HEAD
     path: argocd-apps
     namespace: openshift-gitops
