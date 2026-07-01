@@ -1,4 +1,10 @@
 applications:
+  - name: root-application
+    type: github
+    repoName: mein-gitops
+    targetRevision: HEAD
+    path: argocd-apps
+    namespace: openshift-gitops
   - name: cnpg-cluster-test
     type: github
     repoName: mein-gitops
@@ -18,8 +24,8 @@ applications:
     type: external
     namespace: monitoring-system
     # Für externe OCI-Charts konfigurieren wir das im Template mit (siehe Schritt 3)
-    repoURL: ghcr.io/grafana/helm-charts
-    chart: grafana-operator
+    repoURL: ghcr.io/grafana
+    chart: helm-charts/grafana-operator
     targetRevision: 5.15.1
     inlineValues: 
       securityContext:
