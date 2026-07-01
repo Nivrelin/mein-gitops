@@ -10,7 +10,7 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
-  url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/files/cnpg-dashboard.json
+  url: https://raw.githubusercontent.com/Nivrelin/mein-gitops/main/charts/cnpg/files/cnpg-dashboard.json
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
