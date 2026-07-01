@@ -30,8 +30,7 @@ applications:
     inlineValues: 
       securityContext:
         runAsUser: null
-        runAsGroup: null
-        fsGroup: null
+        runAsGroup: null      
       containerSecurityContext:
         runAsUser: null
         runAsGroup: null
