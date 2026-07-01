@@ -1,3 +1,12 @@
+# --- HIER NEU: Generiert ein echtes Namespace-Manifest für jede App ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .namespace }}
+  labels:
+    # Verknüpft den Namespace fest mit dieser Argo Application
+    argocd.argoproj.io/instance: {{ .name }}
+---
 {{- $root := . -}}
 {{- range .Values.applications }}
 {{- if ne .enabled false }} {{/* Schaut ob enabled nicht false ist (wird aktiv wenn true oder weggelassen) */}}
