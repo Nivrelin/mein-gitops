@@ -10,7 +10,7 @@ spec:
     targetRevision: HEAD
     path: argocd-apps # <-- WICHTIG: Zeigt exakt auf den Ordner mit den App-YAMLs
   destination:
-    server: 'https://default.svc'
+    server: 'https://kubernetes.default.svc'
     namespace: openshift-gitops # Kind-Apps müssen im Argo-Namespace erstellt werden
   syncPolicy:
     automated:
