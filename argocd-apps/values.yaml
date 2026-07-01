@@ -7,7 +7,7 @@ applications:
     path: argocd-apps
     namespace: openshift-gitops
   - name: cnpg-cluster-test
-    enabled: true
+    enabled: false
     type: github
     repoName: mein-gitops
     targetRevision: HEAD
@@ -16,7 +16,7 @@ applications:
     valueFiles:
       - values.yaml
   - name: grafana-instance
-    enabled: true
+    enabled: false
     type: github
     namespace: monitoring-system
     repoName: GrafanaOperator
@@ -24,7 +24,7 @@ applications:
     targetRevision: HEAD
 
   - name: grafana-operator
-    enabled: true
+    enabled: false
     type: external
     namespace: monitoring-system
     # Für externe OCI-Charts konfigurieren wir das im Template mit (siehe Schritt 3)
@@ -43,7 +43,7 @@ applications:
         - CreateNamespace=true
         - ServerSideApply=true
   - name: cnpg-operator
-    enabled: true
+    enabled: false
     namespace: cnpg-operator
     type: external
     repoURL: 'https://cloudnative-pg.github.io/charts' # Das offizielle Helm-Repository
