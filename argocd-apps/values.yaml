@@ -25,8 +25,8 @@ applications:
     namespace: monitoring-system
     # Für externe OCI-Charts konfigurieren wir das im Template mit (siehe Schritt 3)
     repoURL: ghcr.io/grafana
-    chart: helm-charts/grafana-operator
-    targetRevision: 5.15.1
+    chart: grafana-operator
+    targetRevision: v5.15.1
     inlineValues: 
       securityContext:
         runAsUser: null
