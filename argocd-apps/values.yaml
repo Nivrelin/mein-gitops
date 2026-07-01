@@ -1,0 +1,53 @@
+applications:
+  - name: cnpg-cluster-test
+    type: github
+    repoName: mein-gitops
+    targetRevision: HEAD
+    namespace: cnpg-cluster-test
+    path: charts/cnpg
+    valueFiles:
+      - values.yaml
+  - name: grafana-instance
+    type: github
+    namespace: monitoring-system
+    repoName: GrafanaOperator
+    path: .
+    targetRevision: HEAD
+
+  - name: grafana-operator
+    type: external
+    namespace: monitoring-system
+    # Für externe OCI-Charts konfigurieren wir das im Template mit (siehe Schritt 3)
+    repoURL: ghcr.io/grafana/helm-charts
+    chart: grafana-operator
+    targetRevision: 5.15.1
+    inlineValues: 
+      securityContext:
+        runAsUser: null
+        runAsGroup: null
+        fsGroup: null
+      containerSecurityContext:
+        runAsUser: null
+        runAsGroup: null
+    sync:
+      syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
+  - name: cnpg-operator
+    namespace: cnpg-operator
+    type: external
+    repoURL: 'https://cloudnative-pg.github.io/charts' # Das offizielle Helm-Repository
+    chart: cloudnative-pg
+    targetRevision: 0.29.0 # Nutzen Sie die für Sie aktuell passende Chart-Version
+    inlineValues:
+      containerSecurityContext:
+        runAsUser: null
+        runAsGroup: null
+      webhook:
+        containerSecurityContext:
+          runAsUser: null
+          runAsGroup: null
+    sync:
+      syncOptions:
+        - CreateNamespace=true # Erstellt 'cnpg-system' automatisch
+        - ServerSideApply=true

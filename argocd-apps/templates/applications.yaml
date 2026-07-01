@@ -1,0 +1,53 @@
+{{- $root := . -}}
+{{- range .Values.applications }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    {{- if eq .type "github" }}
+    repoURL: {{ cat "https://github.com/Nivrelin/" .repoName | nospace | quote }}
+    path: {{ .path | default "." | quote }}
+    {{- else }}
+    repoURL: {{ .repoURL | quote }}
+    chart: {{ .chart | quote }}
+    {{- end }}
+    targetRevision: {{ .targetRevision | default "HEAD" | quote }}
+    {{- if or .valueFiles .inlineValues }}
+    helm:
+      {{- if .valueFiles }}
+      valueFiles:
+      {{- range .valueFiles }}
+        - {{ . | quote }}
+      {{- end }}
+      {{- end }}
+      
+      {{- if .inlineValues }}
+      values: |
+{{ toYaml .inlineValues | indent 8 }}
+      {{- end }}
+    {{- end }}  
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: {{ .namespace }}
+  
+  syncPolicy:
+    automated:
+      prune: {{ if and (hasKey . "sync") (hasKey .sync "automated") (hasKey .sync.automated "prune") }}{{ .sync.automated.prune }}{{ else }}true{{ end }}
+      selfHeal: {{ if and (hasKey . "sync") (hasKey .sync "automated") (hasKey .sync.automated "selfHeal") }}{{ .sync.automated.selfHeal }}{{ else }}true{{ end }}
+    syncOptions:
+      {{- if and (hasKey . "sync") (hasKey .sync "syncOptions") }}
+      {{- range .sync.syncOptions }}
+        - {{ . | quote }}
+      {{- end }}
+      {{- else }}
+        - CreateNamespace=true
+        - ApplyOutOfSyncOnly=true
+      {{- end }}
+---
+{{- end }}
