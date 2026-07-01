@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-application
+  namespace: openshift-gitops # Ihr funktionierender Argo CD Namespace
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nivrelin/mein-gitops # Ihr Repo
+    targetRevision: HEAD
+    path: argocd-apps # <-- WICHTIG: Zeigt exakt auf den Ordner mit den App-YAMLs
+  destination:
+    server: 'https://default.svc'
+    namespace: openshift-gitops # Kind-Apps müssen im Argo-Namespace erstellt werden
+  syncPolicy:
+    automated:
+      prune: true       # Löscht die App aus Argo, wenn die YAML aus Git entfernt wird
+      selfHeal: true    # Repariert manuelle Änderungen in der UI

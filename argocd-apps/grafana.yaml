@@ -1,0 +1,46 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-instance
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Nivrelin/GrafanaOperator
+    path: .
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: monitoring-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-operator
+  namespace: openshift-gitops # Verweist auf Ihren funktionierenden Argo CD-Namespace
+spec:
+  project: default
+  source:
+    repoURL: 'ghcr.io/grafana/helm-charts' # Offizielles Grafana Helm-Repository
+    chart: grafana-operator
+    targetRevision: v5.15.1 # Nutzen Sie eine für Sie passende Version der v5-Reihe
+    helm:
+      values: |
+        # OpenShift Kompatibilität: Feste UIDs entfernen
+        securityContext:
+          runAsUser: null
+          runAsGroup: null        
+        containerSecurityContext:
+          runAsUser: null
+          runAsGroup: null
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: grafana-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
