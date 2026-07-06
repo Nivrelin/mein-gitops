@@ -61,3 +61,13 @@ applications:
       syncOptions:
         - CreateNamespace=true # Erstellt 'cnpg-system' automatisch
         - ServerSideApply=true
+  - name: reloader-operator
+    enabled : true
+    namespace: reloader-operator
+    type: external
+    repoURL: 'https://stakater.github.io/stakater-charts' #
+    chart: reloader
+    targetRevision: 2.2.14
+    sync:
+      syncOptions:
+        - CreateNamespace=true # Erstellt 'reloader-operator' automatisch
