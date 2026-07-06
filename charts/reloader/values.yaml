@@ -312,9 +312,9 @@ reloader:
       podTargetLabels: []
 
     podDisruptionBudget:
-      enabled: false
+      enabled: true
       # Set the minimum available replicas
-      # minAvailable: 1
+      minAvailable: 1
       # OR Set the maximum unavailable replicas
       # maxUnavailable: 1
       # If both defined only maxUnavailable will be used
