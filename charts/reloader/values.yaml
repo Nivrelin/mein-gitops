@@ -23,7 +23,7 @@ reloader:
     pullPolicy: IfNotPresent
 
   reloader:
-    autoReloadAll: false
+    autoReloadAll: true
     isArgoRollouts: true
     isOpenshift: true
     ignoreSecrets: false
