@@ -105,11 +105,11 @@ reloader:
     containerSecurityContext:
       runAsNonRoot: null
       runAsUser: null
-       capabilities:
-         drop:
-           - ALL
-       allowPrivilegeEscalation: false
-       readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
 
     # A list of tolerations to be applied to the Deployment.
     # Example:
