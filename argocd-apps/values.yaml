@@ -69,13 +69,14 @@ applications:
     chart: reloader
     targetRevision: 2.2.14
     inlineValues: 
-      isOpenshift: true
-      securityContext:
-        runAsUser: null
-        runAsGroup: null      
-      containerSecurityContext:
-        runAsUser: null
-        runAsGroup: null
+      reloader:
+        isOpenshift: true
+        securityContext:
+          runAsUser: null
+          runAsGroup: null      
+        containerSecurityContext:
+          runAsUser: null
+          runAsGroup: null
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'reloader-operator' automatisch
