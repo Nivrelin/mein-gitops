@@ -8,4 +8,4 @@ sources:
 dependencies:
   - name: reloader
     version: 2.2.14
-    repository: oci://ghcr.io/stakater/charts/reloader
+    repository: "https://stakater.github.io/stakater-charts"
