@@ -1,0 +1,11 @@
+apiVersion: v2
+name: reloader
+description: Reloader Umbrella Chart
+version: 1.0.0
+type: application
+sources:
+  - https://github.com/stakater/Reloader
+dependencies:
+  - name: reloader
+    version: 2.2.14
+    repository: oci://ghcr.io/stakater/charts/reloader

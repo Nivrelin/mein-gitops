@@ -64,20 +64,12 @@ applications:
   - name: reloader-operator
     enabled : true
     namespace: reloader-operator
-    type: external
-    repoURL: 'https://stakater.github.io/stakater-charts' 
-    chart: reloader
-    targetRevision: 2.2.14
-    inlineValues: 
-      reloader:
-        isOpenshift: true
-        deployment: 
-          securityContext:
-            runAsUser: null
-            runAsGroup: null      
-          containerSecurityContext:
-            runAsUser: null
-            runAsGroup: null
+    type: github
+    repoName: mein-gitops
+    path: charts/reloader
+    targetRevision: HEAD
+    valueFiles:
+      - values.yaml
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'reloader-operator' automatisch
