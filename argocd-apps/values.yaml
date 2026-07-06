@@ -69,6 +69,7 @@ applications:
     chart: reloader
     targetRevision: 2.2.14
     inlineValues: 
+      isOpenshift: true
       securityContext:
         runAsUser: null
         runAsGroup: null      
