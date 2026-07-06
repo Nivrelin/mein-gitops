@@ -3,3 +3,4 @@ k9s/*
 openshift/*
 /templates/*
 blub.yaml
+*.tgz
