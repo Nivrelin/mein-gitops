@@ -103,7 +103,8 @@ reloader:
         type: RuntimeDefault
 
     containerSecurityContext:
-      {}
+      runAsNonRoot: null
+      runAsUser: null
       # capabilities:
       #   drop:
       #     - ALL
