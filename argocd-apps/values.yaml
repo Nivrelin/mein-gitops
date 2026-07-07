@@ -97,7 +97,7 @@ applications:
     inlineValues:
       podSecurityContext:
         runAsUser: null
-        runAsGroup: null
+        fsGroup: null
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'redis-cluster-test' automatisch
