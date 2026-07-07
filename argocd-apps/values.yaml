@@ -95,6 +95,7 @@ applications:
     namespace: redis-cluster-test
     targetRevision: 0.17.4
     inlineValues:
+      redisCluster.follower.pdb.enabled: true
       podSecurityContext:
         runAsUser: null
         fsGroup: null
