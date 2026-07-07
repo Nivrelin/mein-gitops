@@ -83,3 +83,4 @@ applications:
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'redis-operator' automatisch
+        - ServerSideApply=true
