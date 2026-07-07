@@ -79,7 +79,7 @@ applications:
     type: external
     repoURL: https://ot-container-kit.github.io/helm-charts
     chart: redis-operator
-    targetRevision: latest
+    targetRevision: v0.25.0
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'redis-operator' automatisch
