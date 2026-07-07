@@ -73,3 +73,13 @@ applications:
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'reloader-operator' automatisch
+  - name: redis-operator
+    enabled: true
+    namespace: redis-operator
+    type: external
+    repoURL: https://ot-container-kit.github.io/helm-charts
+    chart: redis-operator
+    targetRevision: latest
+    sync:
+      syncOptions:
+        - CreateNamespace=true # Erstellt 'redis-operator' automatisch
