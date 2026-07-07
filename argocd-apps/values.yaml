@@ -80,6 +80,9 @@ applications:
     repoURL: https://ot-container-kit.github.io/helm-charts
     chart: redis-operator
     targetRevision: v0.25.0
+    inlineValues:
+      redisOperator:
+        replicas: 3
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'redis-operator' automatisch
