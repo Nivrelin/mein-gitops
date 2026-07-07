@@ -94,6 +94,10 @@ applications:
     chart: redis-cluster
     namespace: redis-cluster-test
     targetRevision: 0.17.4
+    inlineValues:
+      podSecurityContext:
+        runAsUser: null
+        runAsGroup: null
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'redis-cluster-test' automatisch
