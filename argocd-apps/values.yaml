@@ -96,6 +96,9 @@ applications:
     targetRevision: 0.17.4
     inlineValues:
       redisCluster:
+        leader:
+          pdb:
+            enabled: true
         follower:
           pdb:
             enabled: true
