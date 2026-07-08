@@ -114,7 +114,7 @@ applications:
     namespace: mariadb-operator
     type: external
     repoURL: ghcr.io/mariadb-operator
-    chart: mariadb-operator
+    chart: mariadb-operator-helm
     targetRevision: 26.6.0
     sync:
       syncOptions:
