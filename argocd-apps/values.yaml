@@ -113,7 +113,7 @@ applications:
     enabled: true
     namespace: mariadb-operator
     type: external
-    repoURL: ghcr.io/mariadb-operator/mariadb-operator
+    repoURL: ghcr.io/mariadb-operator
     chart: mariadb-operator
     targetRevision: 26.6.0
     sync:
