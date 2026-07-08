@@ -126,4 +126,14 @@ applications:
     repoURL: ghcr.io/mariadb-operator/charts
     chart: mariadb-operator-crds
     targetRevision: 26.6.0
-    
+  
+  - name: mariadb-cluster-test
+    enabled: true
+    type: external
+    repoURL: ghcr.io/mariadb-operator/charts
+    chart: mariadb-cluster
+    namespace: mariadb-cluster-test
+    targetRevision: 26.6.0
+    sync:
+      syncOptions:
+        - CreateNamespace=true # Erstellt 'mariadb-cluster-test' automatisch
