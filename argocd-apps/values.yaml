@@ -119,3 +119,11 @@ applications:
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'mariadb-operator' automatisch
+  - name: mariadb-operator-crds
+    enabled: true
+    namespace: mariadb-operator
+    type: external
+    repoURL: ghcr.io/mariadb-operator/charts
+    chart: mariadb-operator-crds
+    targetRevision: 26.6.0
+    
