@@ -108,3 +108,14 @@ applications:
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'redis-cluster-test' automatisch
+
+  - name: mariadb-operator
+    enabled: true
+    namespace: mariadb-operator
+    type: external
+    repoURL: ghcr.io/mariadb-operator/mariadb-operator
+    chart: mariadb-operator
+    targetRevision: 26.6.0
+    sync:
+      syncOptions:
+        - CreateNamespace=true # Erstellt 'mariadb-operator' automatisch
