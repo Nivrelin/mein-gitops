@@ -137,3 +137,12 @@ applications:
     sync:
       syncOptions:
         - CreateNamespace=true # Erstellt 'mariadb-cluster-test' automatisch
+  
+  - name: devspaces-operator
+    enabled: true
+    namespace: openshift-operators
+    type: github
+    repoName: devspaces
+    path: .
+    targetRevision: HEAD
+
