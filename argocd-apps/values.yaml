@@ -139,7 +139,7 @@ applications:
         - CreateNamespace=true # Erstellt 'mariadb-cluster-test' automatisch
   
   - name: devspaces-operator
-    enabled: true
+    enabled: false
     namespace: openshift-operators
     type: github
     repoName: devspaces
