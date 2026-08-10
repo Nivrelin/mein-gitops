@@ -128,7 +128,7 @@ applications:
     targetRevision: 26.6.0
   
   - name: mariadb-cluster-test
-    enabled: true
+    enabled: false
     type: external
     repoURL: ghcr.io/mariadb-operator/charts
     chart: mariadb-cluster
