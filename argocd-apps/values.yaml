@@ -74,7 +74,7 @@ applications:
       syncOptions:
         - CreateNamespace=true # Erstellt 'reloader-operator' automatisch
   - name: redis-operator
-    enabled: true
+    enabled: false
     namespace: redis-operator
     type: external
     repoURL: https://ot-container-kit.github.io/helm-charts
@@ -88,7 +88,7 @@ applications:
         - ServerSideApply=true
 
   - name: redis-cluster-test
-    enabled: true
+    enabled: false
     type: external
     repoURL: https://ot-container-kit.github.io/helm-charts
     chart: redis-cluster
@@ -110,7 +110,7 @@ applications:
         - CreateNamespace=true # Erstellt 'redis-cluster-test' automatisch
 
   - name: mariadb-operator
-    enabled: true
+    enabled: false
     namespace: mariadb-operator
     type: external
     repoURL: ghcr.io/mariadb-operator/charts
@@ -120,7 +120,7 @@ applications:
       syncOptions:
         - CreateNamespace=true # Erstellt 'mariadb-operator' automatisch
   - name: mariadb-operator-crds
-    enabled: true
+    enabled: false
     namespace: mariadb-operator
     type: external
     repoURL: ghcr.io/mariadb-operator/charts
